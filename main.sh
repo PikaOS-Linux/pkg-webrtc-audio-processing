@@ -3,9 +3,9 @@
 DEBIAN_FRONTEND=noninteractive
 
 # Clone Upstream
-mkdir -p ./src-pkg-name
-cp -rvf ./debian ./src-pkg-name/
-cd ./src-pkg-name/
+git clone https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/ -b v1.3
+cp -rvf ./debian ./webrtc-audio-processing/
+cd ./webrtc-audio-processing/
 
 # Get build deps
 apt-get build-dep ./ -y
