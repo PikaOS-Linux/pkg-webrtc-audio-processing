@@ -1,19 +1,5 @@
-#! /bin/bash
-
-DEBIAN_FRONTEND=noninteractive
-
-# Clone Upstream
-git clone https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/ -b v1.3
-cp -rvf ./debian ./webrtc-audio-processing/
-cd ./webrtc-audio-processing/
-
-# Get build deps
-apt-get build-dep ./ -y
-
-# Build package
-dpkg-buildpackage --no-sign
-
-# Move the debs to output
-cd ../
-mkdir -p ./output
-mv ./*.deb ./output/
+# add debs to repo
+ssh ferreo@direct.pika-os.com 'aptly repo remove pikauwu-main libwebrtc-audio-processing-dev_1.3.0-100pika1_amd64.deb'
+ssh ferreo@direct.pika-os.com 'aptly repo remove pikauwu-main libwebrtc-audio-processing1_1.3.0-100pika1_amd64.deb'
+# publish the repo
+ssh ferreo@direct.pika-os.com 'aptly publish update -batch -skip-contents -force-overwrite pikauwu filesystem:pikarepo:'
